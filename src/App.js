@@ -7,7 +7,7 @@ import {List, Typography} from 'antd';
 //引入Store
 import Store from './store'
 //引入actionTypes
-import {CHANGE_INPUT_VALUE} from './store/actionTypes'
+import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM} from './store/actionTypes'
 
 class App extends Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class App extends Component {
         this.state = Store.getState();
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleStoreChange = this.handleStoreChange.bind(this);
+        this.handleBtnClick = this.handleBtnClick.bind(this);
         //当store里面的数据变化的时候 调用订阅中的方法
         Store.subscribe(this.handleStoreChange)
     }
@@ -28,7 +29,7 @@ class App extends Component {
                     value={this.state.inputValue}
                     onChange={this.handleInputChange}
                 />
-                <Button type="primary">提交</Button>
+                <Button type="primary" onClick={this.handleBtnClick}>提交</Button>
                 <List
                     style={{width: 300}}
                     size="small"
@@ -42,7 +43,7 @@ class App extends Component {
 
     handleInputChange(e) {
         //触发一个action
-        const action = {
+        let action = {
             type: CHANGE_INPUT_VALUE,
             value:e.target.value
         }
@@ -51,6 +52,13 @@ class App extends Component {
 
     handleStoreChange() {
         this.setState(Store.getState())
+    }
+
+    handleBtnClick() {
+        let action = {
+            type:ADD_TODO_ITEM
+        }
+        Store.dispatch(action)
     }
 }
 
