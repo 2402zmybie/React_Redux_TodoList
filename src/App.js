@@ -7,7 +7,7 @@ import {List, Typography} from 'antd';
 //引入Store
 import Store from './store'
 //引入actionTypes
-import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM} from './store/actionTypes'
+import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM,ITEM_CLICK_DELETE} from './store/actionTypes'
 
 class App extends Component {
     constructor(props) {
@@ -35,7 +35,9 @@ class App extends Component {
                     size="small"
                     bordered
                     dataSource={this.state.list}
-                    renderItem={item => (<List.Item>{item}</List.Item>)}
+                    renderItem={(item,index) => (<List.Item onClick={
+                        this.handleItemDelete.bind(this,index)
+                    }>{item}</List.Item>)}
                 />
             </div>
         );
@@ -57,6 +59,15 @@ class App extends Component {
     handleBtnClick() {
         let action = {
             type:ADD_TODO_ITEM
+        }
+        Store.dispatch(action)
+    }
+
+    handleItemDelete(index) {
+        console.log(index)
+        let action = {
+            type:ITEM_CLICK_DELETE,
+            index
         }
         Store.dispatch(action)
     }

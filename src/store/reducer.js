@@ -1,8 +1,8 @@
-import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM} from './actionTypes'
+import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM,ITEM_CLICK_DELETE} from './actionTypes'
 
 const defaultState = {
-    inputValue: '3223',
-    list: [1,2]
+    inputValue: '',
+    list: []
 }
 
 
@@ -18,15 +18,20 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch (action.type) {
         case CHANGE_INPUT_VALUE:
-            const newState = JSON.parse(JSON.stringify(state));
+            let newState = JSON.parse(JSON.stringify(state));
             newState.inputValue = action.value;
             return newState
             break;
         case ADD_TODO_ITEM:
-            const todoState = JSON.parse(JSON.stringify(state));
+            let todoState = JSON.parse(JSON.stringify(state));
             todoState.list.unshift(state.inputValue)
+            todoState.inputValue = ''
             return todoState;
             break;
+        case ITEM_CLICK_DELETE:
+            let itemState = JSON.parse(JSON.stringify(state));
+            itemState.list.splice(action.index,1);
+            return itemState;
     }
     return state;
 }
