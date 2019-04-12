@@ -6,8 +6,8 @@ import {Button} from 'antd';
 import {List, Typography} from 'antd';
 //引入Store
 import Store from './store'
-//引入actionTypes
-import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM,ITEM_CLICK_DELETE} from './store/actionTypes'
+//引入actionCreator
+import { getInputChangeAction,getAddItemClickAction,getHandleItemDeleteAction} from './store/actionCreators'
 
 class App extends Component {
     constructor(props) {
@@ -45,10 +45,7 @@ class App extends Component {
 
     handleInputChange(e) {
         //触发一个action
-        let action = {
-            type: CHANGE_INPUT_VALUE,
-            value:e.target.value
-        }
+        let action = getInputChangeAction(e.target.value)
         Store.dispatch(action)
     }
 
@@ -57,18 +54,12 @@ class App extends Component {
     }
 
     handleBtnClick() {
-        let action = {
-            type:ADD_TODO_ITEM
-        }
+        let action = getAddItemClickAction()
         Store.dispatch(action)
     }
 
     handleItemDelete(index) {
-        console.log(index)
-        let action = {
-            type:ITEM_CLICK_DELETE,
-            index
-        }
+        let action = getHandleItemDeleteAction(index);
         Store.dispatch(action)
     }
 }
