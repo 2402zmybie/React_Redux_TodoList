@@ -1,7 +1,6 @@
 //引入actionTypes
-import { CHANGE_INPUT_VALUE ,ADD_TODO_ITEM,ITEM_CLICK_DELETE, INIT_LIST_ACTION } from './actionTypes'
+import { CHANGE_INPUT_VALUE ,ADD_TODO_ITEM,ITEM_CLICK_DELETE, INIT_LIST_ACTION,INIT_LIST_SAGA } from './actionTypes'
 
-import axios from 'axios';
 
 export const getInputChangeAction = (value) => ({
     type:CHANGE_INPUT_VALUE,
@@ -24,6 +23,7 @@ export const getInitListActoon = (data) => ({
     data
 })
 
+/*
 //使用middleware中间件, 可以让action返回一个函数, 函数中可以做复杂操作
 export const getTodoListMethod = () => {
     return (dispatch) => {
@@ -44,4 +44,8 @@ export const getTodoListMethod = () => {
         //         Store.dispatch(initListAction)
         //     })
     }
-}
+}*/
+
+export const getInitListSaga = () => ({
+    type:INIT_LIST_SAGA
+})

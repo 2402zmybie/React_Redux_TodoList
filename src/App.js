@@ -7,7 +7,12 @@ import {List} from 'antd';
 //引入Store
 import Store from './store'
 //引入actionCreator
-import { getInputChangeAction,getAddItemClickAction,getHandleItemDeleteAction, getTodoListMethod} from './store/actionCreators'
+import {
+    getInputChangeAction,
+    getAddItemClickAction,
+    getHandleItemDeleteAction,
+    getInitListSaga
+} from './store/actionCreators'
 
 
 class App extends Component {
@@ -48,11 +53,14 @@ class App extends Component {
         //构建了一个函数的aciton, 当调用Store.dispatch这个函数的时候,action里面的函数会自动的被执行
         //为什么能把返回值为函数的action发送给Store, 是因为使用了redux-thunk,如果去除掉了redux-thunk
         //会报错,报错内容为aciton必须是一个对象
-        // redux-thunk中间件: (action和store的中间)
+        // 1 redux-thunk中间件: (action和store的中间)
         // 原理非常简单,就是对Store的dispatch方法做一个升级,之前的dispatch方法只能接受一个对象,而升级之后能接受一个对象,也能接受一个函数了
+        // const action = getTodoListMethod();
+        // Store.dispatch(action)
 
-        const action = getTodoListMethod();
-        Store.dispatch(action)
+        //2 redu-saga中间件
+        const actionSaga = getInitListSaga();
+        Store.dispatch(actionSaga)
     }
 
 

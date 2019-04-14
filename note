@@ -48,6 +48,7 @@ redux-thunk中间件: (action和store的中间)
 原理非常简单,就是对Store的dispatch方法做一个升级,之前的dispatch方法只能接受一个对象,而升级之后能接受一个对象,也能接受一个函数了
 
 Redux-saga中间件:
-
+使用redux-saga派发文件的时候 不止reducer能接收到aciton,saga也能接收到,
+redux-saga可以把异步的代码完全拆分到一个文件中进行管理,saga在处理非常大的项目的时候优于redux-thunk的
 
 
