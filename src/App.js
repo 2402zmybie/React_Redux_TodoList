@@ -7,8 +7,8 @@ import {List} from 'antd';
 //引入Store
 import Store from './store'
 //引入actionCreator
-import { getInputChangeAction,getAddItemClickAction,getHandleItemDeleteAction, getInitListActoon} from './store/actionCreators'
-import axios from 'axios';
+import { getInputChangeAction,getAddItemClickAction,getHandleItemDeleteAction, getTodoListMethod} from './store/actionCreators'
+
 
 class App extends Component {
     constructor(props) {
@@ -45,23 +45,16 @@ class App extends Component {
     }
 
     componentDidMount() {
-        //本地json文件放在 public文件夹中即可, 使用axios或者fetch请求
-        axios.get("./list.json")
-            .then(res => {
-                    let data = res.data.data
-                    let initListAction = getInitListActoon(data);
-                    console.log(initListAction);
-                    Store.dispatch(initListAction)
-                })
-        // fetch("./list.json")
-        //     .then(res => res.json())
-        //     .then(response => {
-        //         let data = response.data;
-        //         let initListAction = getInitListActoon(data);
-        //         console.log(initListAction);
-        //         Store.dispatch(initListAction)
-        //     })
+        //构建了一个函数的aciton, 当调用Store.dispatch这个函数的时候,action里面的函数会自动的被执行
+        //为什么能把返回值为函数的action发送给Store, 是因为使用了redux-thunk,如果去除掉了redux-thunk
+        //会报错,报错内容为aciton必须是一个对象
+        // redux-thunk中间件: (action和store的中间)
+        // 原理非常简单,就是对Store的dispatch方法做一个升级,之前的dispatch方法只能接受一个对象,而升级之后能接受一个对象,也能接受一个函数了
+
+        const action = getTodoListMethod();
+        Store.dispatch(action)
     }
+
 
     handleInputChange(e) {
         //触发一个action

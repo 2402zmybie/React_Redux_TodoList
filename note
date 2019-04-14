@@ -43,3 +43,11 @@ createStore: 帮助我们创建一个store
 store.dispatch: 派发action,传递给store
 store.getState: 会帮我们获取store所有的数据内容
 store.subscribe: 会订阅store的改变,store一旦改变,回调函数会被执行
+
+redux-thunk中间件: (action和store的中间)
+原理非常简单,就是对Store的dispatch方法做一个升级,之前的dispatch方法只能接受一个对象,而升级之后能接受一个对象,也能接受一个函数了
+
+Redux-saga中间件:
+
+
+
