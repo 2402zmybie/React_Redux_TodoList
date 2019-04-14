@@ -1,5 +1,5 @@
 //引入actionTypes
-import { CHANGE_INPUT_VALUE ,ADD_TODO_ITEM,ITEM_CLICK_DELETE} from './actionTypes'
+import { CHANGE_INPUT_VALUE ,ADD_TODO_ITEM,ITEM_CLICK_DELETE, INIT_LIST_ACTION } from './actionTypes'
 
 
 export const getInputChangeAction = (value) => ({
@@ -16,4 +16,9 @@ export const getAddItemClickAction = () => {
 export const getHandleItemDeleteAction = (index) => ({
     type: ITEM_CLICK_DELETE,
     index
+})
+
+export const getInitListActoon = (data) => ({
+    type:INIT_LIST_ACTION,
+    data
 })

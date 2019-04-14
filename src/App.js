@@ -3,11 +3,12 @@ import React, {Component} from 'react';
 import 'antd/dist/antd.css';
 import {Input} from 'antd';
 import {Button} from 'antd';
-import {List, Typography} from 'antd';
+import {List} from 'antd';
 //引入Store
 import Store from './store'
 //引入actionCreator
-import { getInputChangeAction,getAddItemClickAction,getHandleItemDeleteAction} from './store/actionCreators'
+import { getInputChangeAction,getAddItemClickAction,getHandleItemDeleteAction, getInitListActoon} from './store/actionCreators'
+import axios from 'axios';
 
 class App extends Component {
     constructor(props) {
@@ -41,6 +42,25 @@ class App extends Component {
                 />
             </div>
         );
+    }
+
+    componentDidMount() {
+        //本地json文件放在 public文件夹中即可, 使用axios或者fetch请求
+        axios.get("./list.json")
+            .then(res => {
+                    let data = res.data.data
+                    let initListAction = getInitListActoon(data);
+                    console.log(initListAction);
+                    Store.dispatch(initListAction)
+                })
+        // fetch("./list.json")
+        //     .then(res => res.json())
+        //     .then(response => {
+        //         let data = response.data;
+        //         let initListAction = getInitListActoon(data);
+        //         console.log(initListAction);
+        //         Store.dispatch(initListAction)
+        //     })
     }
 
     handleInputChange(e) {
