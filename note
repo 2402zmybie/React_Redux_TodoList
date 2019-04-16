@@ -52,3 +52,10 @@ Redux-saga中间件:
 redux-saga可以把异步的代码完全拆分到一个文件中进行管理,saga在处理非常大的项目的时候优于redux-thunk的
 
 
+
+react-redux 核心api:
+1 Provider
+  提供器,连接store,Provider包围最外层组件,将store提供给它所有的内部组件
+2 connect
+  子组件怎么获取store里面的数据呢? 先 import {connect} from 'react-redux',  然后导出connect(mapStateToProps,mapDispatchToProps)(组件)
+
